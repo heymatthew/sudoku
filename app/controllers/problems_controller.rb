@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController
-  def show
+  def index
+    @problems = []
   end
 end
