@@ -1,1 +1,9 @@
 Imagine a problem listing right here.
+
+<ul>
+  <% @problems.each do |problem| %>
+    <li>
+      <%= link_to "Problem #{problem.id}", problem %>
+    </li>
+  <% end %>
+</ul>
