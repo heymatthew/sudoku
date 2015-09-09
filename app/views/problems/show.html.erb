@@ -1,7 +1,7 @@
-<table>
-  <% @grid.each do |column| %>
+<table class="grid">
+  <% @problem.grid.each do |column| %>
     <tr>
-      <% @grid.each do |column| %>
+      <% column.each do |row| %>
         <td>
           <input>
         </td>
