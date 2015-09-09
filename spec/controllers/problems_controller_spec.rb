@@ -23,4 +23,14 @@ RSpec.describe ProblemsController, type: :controller do
       end
     end
   end
+
+  describe "#show" do
+    let(:sample_problem) { Problem.create! }
+    before { get :show, id: sample_problem.id }
+    subject { assigns(:problem) }
+
+    it "finds the correct problem in request" do
+      expect(subject).to eq sample_problem
+    end
+  end
 end
