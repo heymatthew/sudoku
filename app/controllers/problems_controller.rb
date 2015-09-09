@@ -5,7 +5,6 @@ class ProblemsController < ApplicationController
 
   def show
     @problem = Problem.find(problem_id)
-    @problem.grid = Problem::DEFAULT_GRID # FIXME remove this
   end
 
   private
