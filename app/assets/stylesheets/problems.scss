@@ -3,23 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 table.grid {
+  $boxing: #ffebee;
+  $disabled: #b71c1c;
+
   margin: 0 auto;
 
   input {
+    font-size: 1.2em;
     width: 2em;
     height: 2em;
     text-align: center;
+    background: transparent;
+    border: none;
+
+    &[disabled] {
+      font-weight: bold;
+      color: $disabled;
+      border: 1px solid $disabled;
+    }
   }
 
   // color boxes
   tr {
-    $highlight: green;
-
     // top 3 rows OR bottom 3 rows
     &:nth-child(-n+3),&:nth-child(n+7) {
       // left 3 columns OR right 3 columns
       td:nth-child(-n+3),:nth-child(n+7) {
-        background-color: $highlight;
+        background-color: $boxing;
       }
     }
 
@@ -27,7 +37,7 @@ table.grid {
     &:nth-child(n+4):nth-child(-n+6) {
       // center 3 columns
       td:nth-child(n+4):nth-child(-n+6) {
-        background-color: $highlight;
+        background-color: $boxing;
       }
     }
   }

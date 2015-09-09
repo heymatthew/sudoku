@@ -1,9 +1,13 @@
 <table class="grid">
-  <% @problem.grid.each do |column| %>
+  <% @problem.grid.each do |row| %>
     <tr>
-      <% column.each do |row| %>
+      <% row.each do |cell| %>
         <td>
-          <input>
+          <% if cell.nil? %>
+            <input>
+          <% else %>
+            <input value="<%= cell %>" disabled="true">
+          <% end %>
         </td>
       <% end %>
     </tr>
