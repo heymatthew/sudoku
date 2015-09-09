@@ -1,15 +1,19 @@
-<table class="grid">
-  <% @problem.grid.each do |row| %>
-    <tr>
-      <% row.each do |cell| %>
-        <td>
-          <% if cell.nil? %>
-            <input>
-          <% else %>
-            <input value="<%= cell %>" disabled="true">
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<%= form_for @problem do |form| %>
+  <table class="grid">
+    <% @problem.grid.each do |row| %>
+      <tr>
+        <% row.each do |cell| %>
+          <td>
+            <% if cell.nil? %>
+              <input name="cell">
+            <% else %>
+              <input name="cell" value="<%= cell %>" disabled="true">
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= form.submit "Submit Solution" %>
+<% end %>
