@@ -8,10 +8,10 @@ class NumberGroup
   end
 
   def valid?
-    if (blank_items.count > 0)
-      errors.push "group contains blank items"
-    elsif (too_few_items?)
+    if (wrong_item_count?)
       errors.push "need #{expected_length} items in group"
+    elsif (blank_items.count > 0)
+      errors.push "group contains blank items"
     elsif (duplicate_items?)
       errors.push "duplicated items found in group"
     elsif (any_invalid_numbers?)
@@ -37,7 +37,7 @@ class NumberGroup
     false
   end
 
-  def too_few_items?
+  def wrong_item_count?
     @items.length != expected_length
   end
 
