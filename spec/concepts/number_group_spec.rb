@@ -72,4 +72,9 @@ RSpec.describe NumberGroup do
     let(:list) { ['', '2', '3', '4', '5', '6', '7', '8', '9'] }
     include_examples "is not #valid?", /blank/
   end
+
+  context "when user submits too many things" do
+    let(:list) { ['a']*100 } # because security
+    include_examples "is not #valid?", /9 items/
+  end
 end
