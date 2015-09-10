@@ -38,11 +38,6 @@ RSpec.describe NumberGroup do
     include_examples "is #valid?"
   end
 
-  context "has numbers as strings" do
-    let(:list) { %w(1 2 3 4 5 6 7 8 9) }
-    include_examples "is #valid?"
-  end
-
   context "has less than 9 numbers" do
     let(:list) { [1,2,3] }
     include_examples "is not #valid?", /9 items/
@@ -60,6 +55,16 @@ RSpec.describe NumberGroup do
 
   context "with numbers > 9" do
     let(:list) { [2,3,4,5,6,7,8,9,10] }
+    include_examples "is not #valid?", /1-9/
+  end
+
+  context "has numbers as strings" do
+    let(:list) { %w(1 2 3 4 5 6 7 8 9) }
+    include_examples "is #valid?"
+  end
+
+  context "with garbage strings in fields" do
+    let(:list) { %w(flubber 2 3 4 5 6 7 8 9) }
     include_examples "is not #valid?", /1-9/
   end
 end
