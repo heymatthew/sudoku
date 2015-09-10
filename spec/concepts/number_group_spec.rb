@@ -67,4 +67,9 @@ RSpec.describe NumberGroup do
     let(:list) { %w(flubber 2 3 4 5 6 7 8 9) }
     include_examples "is not #valid?", /1-9/
   end
+
+  context "when blanks are submitted in fields" do
+    let(:list) { ['', '2', '3', '4', '5', '6', '7', '8', '9'] }
+    include_examples "is not #valid?", /blank/
+  end
 end

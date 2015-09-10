@@ -3,12 +3,14 @@ class NumberGroup
   VALID_NUMBERS = (1..9)
 
   def initialize(items)
-    @items = items.map(&:to_i)
+    @items = items
     @errors = []
   end
 
   def valid?
-    if (too_few_items?)
+    if (blank_items.count > 0)
+      errors.push "group contains blank items"
+    elsif (too_few_items?)
       errors.push "need #{expected_length} items in group"
     elsif (duplicate_items?)
       errors.push "duplicated items found in group"
@@ -21,9 +23,14 @@ class NumberGroup
 
   private
 
+  def blank_items
+    @items.select { |item| item == '' }
+  end
+
   def any_invalid_numbers?
     @items.each do |item|
-      if !VALID_NUMBERS.include?(item)
+      number = item.to_i
+      if !VALID_NUMBERS.include?(number)
         return true
       end
     end
