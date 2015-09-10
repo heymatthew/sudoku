@@ -38,6 +38,11 @@ RSpec.describe NumberGroup do
     include_examples "is #valid?"
   end
 
+  context "has numbers as strings" do
+    let(:list) { %w(1 2 3 4 5 6 7 8 9) }
+    include_examples "is #valid?"
+  end
+
   context "has less than 9 numbers" do
     let(:list) { [1,2,3] }
     include_examples "is not #valid?", /9 items/
