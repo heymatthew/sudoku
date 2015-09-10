@@ -21,14 +21,14 @@ RSpec.describe Row do
 
   subject { Row.new(grid, row_number) }
 
-  context "when the row has 4s" do
+  context "with valid input" do
     include_examples "is #valid?"
 
-    it "starts with a 4" do
+    it "shows the first item as expected" do
       expect(subject.items.first).to eq 4
     end
 
-    it "ends with a 3" do
+    it "shows the last item as expected" do
       expect(subject.items.last).to eq 3
     end
   end
