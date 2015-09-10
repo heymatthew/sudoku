@@ -3,7 +3,7 @@ class NumberGroup
   VALID_NUMBERS = (1..9)
 
   def initialize(items)
-    @items = items
+    @items = items.map(&:to_i)
     @errors = []
   end
 
