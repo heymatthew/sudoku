@@ -47,4 +47,14 @@ RSpec.describe NumberGroup do
     let(:list) { [1,2,3,4,5,6,7,8,8] }
     include_examples "is not #valid?", /duplicate/
   end
+
+  context "with numbers < 1" do
+    let(:list) { [0,1,2,3,4,5,6,7,8] }
+    include_examples "is not #valid?", /1-9/
+  end
+
+  context "with numbers > 9" do
+    let(:list) { [2,3,4,5,6,7,8,9,10] }
+    include_examples "is not #valid?", /1-9/
+  end
 end
