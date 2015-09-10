@@ -5,9 +5,10 @@
         <% row.each do |cell| %>
           <td>
             <% if cell.nil? %>
-              <input name="cell">
+              <input name="cell[]">
             <% else %>
-              <input name="cell" value="<%= cell %>" disabled="true">
+              <input value="<%= cell %>" disabled="true">
+              <input type="hidden" value="<%= cell %>" name="cell[]">
             <% end %>
           </td>
         <% end %>
