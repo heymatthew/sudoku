@@ -1,5 +1,17 @@
 require 'rails_helper'
 
+RSpec.shared_examples "is #valid?" do
+  it "is #valid?" do
+    expect(subject).to be_valid
+  end
+
+  it "has no errors" do
+    expect { subject.valid? }
+      .to_not change { subject.errors }
+      .from([])
+  end
+end
+
 RSpec.shared_examples "is not #valid?" do |expected_error_regex|
   it "is not #valid?" do
     expect(subject).to_not be_valid
@@ -18,9 +30,12 @@ RSpec.describe NumberGroup do
   subject { service }
 
   context "list has unique values 1-9" do
-    it "is #valid?" do
-      expect(subject).to be_valid
-    end
+    include_examples "is #valid?"
+  end
+
+  context "list unique values 1-9 out of order" do
+    let(:list) { [6,5,4,3,2,1,9,8,7] }
+    include_examples "is #valid?"
   end
 
   context "has less than 9 numbers" do
