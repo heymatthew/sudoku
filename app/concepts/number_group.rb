@@ -9,7 +9,7 @@ class NumberGroup
 
   def valid?
     if (too_few_items?)
-      errors.push "less than #{expected_length} items in group"
+      errors.push "need #{expected_length} items in group"
     elsif (duplicate_items?)
       errors.push "duplicated items found in group"
     elsif (any_invalid_numbers?)
