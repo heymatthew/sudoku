@@ -1,5 +1,7 @@
 class NumberGroup
   attr_reader :errors
+  attr_reader :items
+
   VALID_NUMBERS = (1..9)
 
   def initialize(items)
