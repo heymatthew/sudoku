@@ -10,7 +10,7 @@ class NumberGroup
   def valid?
     if (wrong_item_count?)
       errors.push "need #{expected_length} items in group"
-    elsif (blank_items.count > 0)
+    elsif (has_blank_items?)
       errors.push "group contains blank items"
     elsif (duplicate_items?)
       errors.push "duplicated items found in group"
@@ -22,6 +22,10 @@ class NumberGroup
   end
 
   private
+
+  def has_blank_items?
+    blank_items.count > 0
+  end
 
   def blank_items
     @items.select { |item| item == '' }
