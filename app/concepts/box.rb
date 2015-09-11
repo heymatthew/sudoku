@@ -1,12 +1,12 @@
 class Box < NumberGroup
-  BOXED_WIDTH = Problem::GRID_HEIGHT / 3
-  BOXED_HEIGHT = Problem::GRID_WIDTH / 3
+  BOXED_WIDTH = Grid::HEIGHT / 3
+  BOXED_HEIGHT = Grid::WIDTH / 3
 
   def initialize(grid, column_number, row_number)
     @grid, @column_number, @row_number = grid, column_number, row_number
 
     # TODO migrate up :)
-    @grid = grid.each_slice(Problem::GRID_WIDTH).to_a
+    @grid = grid.each_slice(Grid::WIDTH).to_a
 
     super(items)
   end

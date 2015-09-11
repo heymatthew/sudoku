@@ -13,10 +13,10 @@ class Row < NumberGroup
   end
 
   def start_of_row
-    Problem::GRID_WIDTH * (@row_number - 1)
+    Grid::WIDTH * (@row_number - 1)
   end
 
   def end_of_row
-    start_of_row + Problem::GRID_WIDTH
+    start_of_row + Grid::WIDTH
   end
 end

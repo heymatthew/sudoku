@@ -15,7 +15,7 @@ class Column < NumberGroup
   end
 
   def item_at(row_index, column_index)
-    index = (row_index * Problem::GRID_WIDTH) + column_index
+    index = (row_index * Grid::WIDTH) + column_index
     @grid[index]
   end
 end
