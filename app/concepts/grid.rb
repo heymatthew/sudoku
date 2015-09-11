@@ -1,6 +1,8 @@
 class Grid
   attr_accessor :errors
 
+  delegate :slice, to: :grid_rows
+
   WIDTH = 9
   HEIGHT = 9
 

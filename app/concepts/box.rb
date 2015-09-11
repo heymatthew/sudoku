@@ -4,10 +4,6 @@ class Box < NumberGroup
 
   def initialize(grid, column_number, row_number)
     @grid, @column_number, @row_number = grid, column_number, row_number
-
-    # TODO migrate up :)
-    @grid = grid.each_slice(Grid::WIDTH).to_a
-
     super(items)
   end
 
