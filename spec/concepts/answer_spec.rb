@@ -1,8 +1,8 @@
 require 'rails_helper'
 require_relative 'shared_examples'
 
-RSpec.describe Grid do
-  subject { Grid.new(cells) }
+RSpec.describe Answer do
+  subject { Answer.new(cells) }
 
   context "when supplied with solved sudoku" do
     let(:cells) {
@@ -22,5 +22,15 @@ RSpec.describe Grid do
     }
 
     include_examples "is #valid?"
+  end
+
+  context "with too many items" do
+    let(:cells) { ['a']*82 }
+    include_examples "is not #valid?", /need 81/
+  end
+
+  context "with too few items" do
+    let(:cells) { ['a']*80 }
+    include_examples "is not #valid?", /need 81/
   end
 end

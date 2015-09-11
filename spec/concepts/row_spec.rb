@@ -3,8 +3,8 @@ require_relative 'shared_examples'
 
 RSpec.describe Row do
   let(:row_number) { 4 }
-  let(:grid) {
-    Grid.new([
+  let(:answer) {
+    Answer.new([
        1,1,1,   1,1,1,  1,1, 1,  # row 1
        2,3,4,   5,6,7,  8,9,'a', # row 2
        3,3,3,   3,3,3,  3,3, 3,  # row 3
@@ -19,7 +19,7 @@ RSpec.describe Row do
     ])
   }
 
-  subject { Row.new(grid, row_number) }
+  subject { Row.new(answer, row_number) }
 
   context "with valid input" do
     include_examples "is #valid?"
