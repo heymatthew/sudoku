@@ -5,7 +5,7 @@ RSpec.describe Box do
   let(:column_number) { 2 }
   let(:row_number) { 2 }
   let(:grid) {
-    [
+    Grid.new([
        1,  2, 'a', 1,  2,  3, 'a', 1,  2,
        4,  3, 'a', 6,  5,  4, 'a', 4,  3,
       'a','a','a','a','a','a','a','a','a',
@@ -15,7 +15,7 @@ RSpec.describe Box do
       'a','a','a','a','a','a','a','a','a',
        1,  2, 'a', 1,  2,  3, 'a', 1,  2,
        4,  3, 'a', 6,  5,  4, 'a', 4,  3,
-    ]
+    ])
   }
 
   subject { Box.new(grid, column_number, row_number) }
