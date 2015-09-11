@@ -10,13 +10,13 @@ class NumberGroup
   end
 
   def valid?
-    if (wrong_item_count?)
+    if wrong_item_count?
       errors.push "need #{expected_length} items in group"
-    elsif (has_blank_items?)
+    elsif has_blank_items?
       errors.push "group contains blank items"
-    elsif (duplicate_items?)
+    elsif duplicate_items?
       errors.push "duplicated items found in group"
-    elsif (any_invalid_numbers?)
+    elsif any_invalid_numbers?
       errors.push "only use numbers 1-9"
     end
 
