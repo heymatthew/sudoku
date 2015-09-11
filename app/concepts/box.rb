@@ -1,9 +1,9 @@
 class Box < NumberGroup
-  BOXED_WIDTH = Grid::HEIGHT / 3
-  BOXED_HEIGHT = Grid::WIDTH / 3
+  BOXED_WIDTH = Answer::HEIGHT / 3
+  BOXED_HEIGHT = Answer::WIDTH / 3
 
-  def initialize(grid, column_number, row_number)
-    @grid, @column_number, @row_number = grid, column_number, row_number
+  def initialize(answer, column_number, row_number)
+    @answer, @column_number, @row_number = answer, column_number, row_number
     super(items)
   end
 
@@ -12,7 +12,7 @@ class Box < NumberGroup
   end
 
   def box_grid
-    @grid.slice(row_range).map do |box_row|
+    @answer.slice(row_range).map do |box_row|
       select_columns_from_row(box_row)
     end
   end

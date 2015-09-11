@@ -1,12 +1,12 @@
 class Column < NumberGroup
-  def initialize(grid, column_number)
-    @grid, @column_number = grid, column_number
+  def initialize(answer, column_number)
+    @answer, @column_number = answer, column_number
     super(items)
   end
 
   def items
-    Grid::HEIGHT.times.map do |row_index|
-      @grid[row_index][column_index]
+    Answer::HEIGHT.times.map do |row_index|
+      @answer[row_index][column_index]
     end
   end
 

@@ -1,4 +1,4 @@
-class Grid
+class Answer
   attr_accessor :errors
 
   delegate :slice, to: :grid_rows
