@@ -18,7 +18,7 @@ RSpec.describe Box do
     ])
   }
 
-  subject { Box.new(answer, column_number, row_number) }
+  subject { Box.new(answer, row_number, column_number) }
 
   context "with valid input" do
     include_examples "is #valid?"

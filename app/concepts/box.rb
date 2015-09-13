@@ -2,7 +2,7 @@ class Box < NumberGroup
   BOXED_WIDTH = Answer::HEIGHT / 3
   BOXED_HEIGHT = Answer::WIDTH / 3
 
-  def initialize(answer, column_number, row_number)
+  def initialize(answer, row_number, column_number)
     @answer, @column_number, @row_number = answer, column_number, row_number
     super(items)
   end
