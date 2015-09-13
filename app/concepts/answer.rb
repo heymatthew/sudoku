@@ -1,7 +1,7 @@
 class Answer
   attr_accessor :errors
 
-  delegate :slice, to: :grid_rows
+  delegate :slice, to: :grid
 
   WIDTH = 9
   HEIGHT = 9
@@ -14,7 +14,7 @@ class Answer
   end
 
   def [](index)
-    grid_rows[index]
+    grid[index]
   end
 
   def valid?
@@ -67,7 +67,7 @@ class Answer
     WIDTH * HEIGHT
   end
 
-  def grid_rows
+  def grid
     @grid ||= @cells.each_slice(WIDTH).to_a
   end
 end
