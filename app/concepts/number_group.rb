@@ -11,13 +11,13 @@ class NumberGroup
 
   def valid?
     if wrong_item_count?
-      errors.push "need #{expected_length} items in group"
+      errors.push "need #{expected_length} items in #{self.class}"
     elsif has_blank_items?
-      errors.push "group contains blank items"
+      errors.push "#{self.class} contains blank items"
     elsif duplicate_items?
-      errors.push "duplicated items found in group"
+      errors.push "duplicated items found in #{self.class}"
     elsif any_invalid_numbers?
-      errors.push "only use numbers 1-9"
+      errors.push "invalid chars, please only use numbers 1-9 in #{self.class}"
     end
 
     errors.none?
