@@ -1,3 +1,11 @@
+<% if @errors and @errors.any? %>
+  <ul class="errors">
+    <% @errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @problem do |form| %>
   <table class="grid">
     <% @problem.grid.each do |row| %>

@@ -9,13 +9,21 @@ class ProblemsController < ApplicationController
   end
 
   def update
+    if !answer.valid?
+      @errors = answer.errors
+    end
+
     render :show
   end
 
   private
 
+  def answer
+    @answer ||= Answer.new(cell_params)
+  end
+
   def lookup_problem
-    @problem = Problem.find(problem_id)
+    @problem ||= Problem.find(problem_id)
   end
 
   def problem_id
