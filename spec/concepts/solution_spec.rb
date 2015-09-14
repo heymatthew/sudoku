@@ -72,14 +72,4 @@ RSpec.describe Solution do
       expect(subject).to be_complete
     end
   end
-
-  context "with too many items" do
-    let(:cells) { ['a']*82 }
-    include_examples "is not #valid?", /need 81/
-  end
-
-  context "with too few items" do
-    let(:cells) { ['a']*80 }
-    include_examples "is not #valid?", /need 81/
-  end
 end
