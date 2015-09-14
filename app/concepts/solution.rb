@@ -44,7 +44,7 @@ class Solution
   def subgrids
     SUBGRID_DIMENSIONS.map do |grid_row_range, grid_column_range|
       subgrid = grid.slice(grid_row_range).transpose.slice(grid_column_range)
-      SudokuGroup.new(subgrid)
+      SudokuGroup.new(subgrid.flatten)
     end
   end
 
@@ -57,14 +57,14 @@ class Solution
   end
 
   def row_errors
-    rows.reject(&:valid).map(:errors)
+    rows.reject(&:valid?).map(&:errors)
   end
 
   def column_errors
-    columns.reject(&:valid).map(:errors)
+    columns.reject(&:valid?).map(&:errors)
   end
 
   def subgrid_errors
-    subgrids.reject(&:valid).map(:errors)
+    subgrids.reject(&:valid?).map(&:errors)
   end
 end
