@@ -1,11 +1,6 @@
 class Solution
   attr_accessor :errors
 
-  WIDTH  = 9
-  HEIGHT = 9
-
-  SUBGRID_DIMENSIONS = [(0..2),(3..5),(6..8)].product [(0..2),(3..5),(6..8)]
-
   def initialize(cells)
     @cells = cells
     @errors = []
@@ -27,25 +22,6 @@ class Solution
     @cells.select(&:empty?).count == 0
   end
 
-  def grid
-    @grid ||= @cells.each_slice(WIDTH).to_a
-  end
-
-  def columns
-    grid.transpose.map { |column| SudokuGroup.new(column) }
-  end
-
-  def rows
-    grid.map { |row| SudokuGroup.new(row) }
-  end
-
-  def subgrids
-    SUBGRID_DIMENSIONS.map do |grid_row_range, grid_column_range|
-      subgrid = grid.slice(grid_row_range).transpose.slice(grid_column_range)
-      SudokuGroup.new(subgrid.flatten)
-    end
-  end
-
   def not_enough_cells?
     @cells.count != expected_cell_count
   end
@@ -55,14 +31,14 @@ class Solution
   end
 
   def row_errors
-    rows.reject(&:valid?).map(&:errors).flatten
-  end
-
-  def column_errors
-    columns.reject(&:valid?).map(&:errors).flatten
+    row_groups.reject(&:valid?).map(&:errors).flatten
   end
 
   def subgrid_errors
-    subgrids.reject(&:valid?).map(&:errors).flatten
+    subgrid_groups.reject(&:valid?).map(&:errors).flatten
+  end
+
+  def column_errors
+    column_groups.reject(&:valid?).map(&:errors).flatten
   end
 end
