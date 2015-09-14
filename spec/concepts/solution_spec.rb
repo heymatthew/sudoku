@@ -1,8 +1,8 @@
 require 'rails_helper'
 require_relative 'shared_examples'
 
-RSpec.describe Answer do
-  subject { Answer.new(cells) }
+RSpec.describe Solution do
+  subject { Solution.new(cells) }
 
   context "when supplied with solved sudoku" do
     let(:cells) {

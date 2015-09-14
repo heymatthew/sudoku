@@ -9,8 +9,8 @@ class ProblemsController < ApplicationController
   end
 
   def update
-    if !answer.valid?
-      @errors = answer.errors
+    if !solution.valid?
+      @errors = solution.errors
     end
 
     render :show
@@ -18,8 +18,8 @@ class ProblemsController < ApplicationController
 
   private
 
-  def answer
-    @answer ||= Answer.new(cell_params)
+  def solution
+    @solution ||= solution.new(cell_params)
   end
 
   def lookup_problem

@@ -1,4 +1,4 @@
-class Answer
+class Solution
   attr_accessor :errors
 
   WIDTH  = 9
@@ -9,6 +9,24 @@ class Answer
   def initialize(cells)
     @cells = cells
     @errors = []
+  end
+
+  def valid?
+    errors = []
+
+    if not_enough_cells?
+      errors.push "need #{expected_cell_count} to play sudoku"
+    else
+      errors.push(*row_errors)
+      errors.push(*column_errors)
+      errors.push(*subgrid_errors)
+    end
+
+    errors.none?
+  end
+
+  def complete?
+    @cells.select(&:empty).count == 0
   end
 
   def grid
@@ -28,20 +46,6 @@ class Answer
       subgrid = grid.slice(grid_row_range).transpose.slice(grid_column_range)
       SudokuGroup.new(subgrid)
     end
-  end
-
-  def valid?
-    errors = []
-
-    if not_enough_cells?
-      errors.push "need #{expected_cell_count} to play sudoku"
-    else
-      errors.push(*row_errors)
-      errors.push(*column_errors)
-      errors.push(*subgrid_errors)
-    end
-
-    errors.none?
   end
 
   def not_enough_cells?
