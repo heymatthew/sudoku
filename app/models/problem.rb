@@ -1,6 +1,5 @@
 class Problem < ActiveRecord::Base
-  # TODO map into GRID :)
-  DEFAULT_GRID = [[nil]*9]*9
+  DEFAULT_GRID = [[nil]*Grid::WIDTH]*Grid::HEIGHT
 
   # TODO define serialise functions
   serialize :grid
