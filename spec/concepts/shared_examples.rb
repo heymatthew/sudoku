@@ -18,6 +18,7 @@ RSpec.shared_examples "is not #valid?" do |expected_error_regex|
   it "has a sensible error" do
     expect { subject.valid? }
       .to change { subject.errors }
+      .from([])
       .to include expected_error_regex
   end
 end
