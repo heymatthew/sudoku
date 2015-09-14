@@ -19,7 +19,7 @@ class ProblemsController < ApplicationController
   private
 
   def solution
-    @solution ||= solution.new(cell_params)
+    @solution ||= Solution.new(cell_params)
   end
 
   def lookup_problem

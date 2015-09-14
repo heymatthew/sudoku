@@ -8,7 +8,12 @@ class Grid
   attr_reader :values
 
   def initialize(cells)
-    @values = cells.each_slice(WIDTH).to_a
+    sample_cells = cells.pop(grid_size)
+    @values = break_into_rows(sample_cells)
+  end
+
+  def grid_size
+    WIDTH * HEIGHT
   end
 
   def rows
@@ -23,5 +28,15 @@ class Grid
     SUBGRID_DIMENSIONS.map do |row_range, column_range|
       @values.slice(row_range).transpose.slice(column_range).flatten
     end
+  end
+
+  def complete?
+    @values.flatten.select(&:empty?).count == 0
+  end
+
+  protected
+
+  def break_into_rows(cells)
+    cells.each_slice(WIDTH).to_a
   end
 end

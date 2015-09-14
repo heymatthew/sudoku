@@ -1,11 +1,5 @@
 require 'rails_helper'
 
-RSpec.shared_examples "represents passed in cells" do
-  it "represents passed in cells" do
-    expect(subject.flatten.sort).to eq cells.sort
-  end
-end
-
 RSpec.describe Grid do
   let(:cells) {
     %w(1 1 1   2 2 2   3 3 3
@@ -24,7 +18,6 @@ RSpec.describe Grid do
 
   describe "#rows" do
     subject { grid.rows }
-    include_examples "represents passed in cells" 
 
     it "can find the first row" do
       expect(subject.first).to eq %w(1 1 1   2 2 2   3 3 3)
@@ -37,7 +30,6 @@ RSpec.describe Grid do
 
   describe "#columns" do
     subject { grid.columns }
-    include_examples "represents passed in cells" 
 
     it "can find the first column" do
       expect(subject.first).to eq %w(1 1 1   4 4 4   7 7 7)
@@ -50,7 +42,6 @@ RSpec.describe Grid do
 
   describe "#subgrids" do
     subject { grid.subgrids }
-    include_examples "represents passed in cells" 
 
     it "starts with the top left" do
       expect(subject.first).to eq %w(1 1 1
