@@ -30,17 +30,14 @@ class NumberGroup
   end
 
   def blank_items
-    @items.select { |item| item == '' }
+    items.select(&:blank?)
   end
 
   def any_invalid_numbers?
-    @items.each do |item|
+    @items.any? do |item|
       number = item.to_i
-      if !VALID_NUMBERS.include?(number)
-        return true
-      end
+      VALID_NUMBERS.exclude?(number)
     end
-    false
   end
 
   def wrong_item_count?
