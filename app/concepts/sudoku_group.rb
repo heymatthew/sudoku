@@ -1,10 +1,15 @@
-SudokuGroup = Struct.new(:items) do
+class SudokuGroup
   VALID_RANGE = (1..9)
 
   attr_accessor :errors
+  attr_accessor :items
+
+  def initialize(items)
+    @items = items
+    @errors = []
+  end
 
   def valid?
-    errors = []
     check_for_duplicate_values
     check_for_invalid_values
     errors.none?
@@ -16,13 +21,13 @@ SudokuGroup = Struct.new(:items) do
 
   def check_for_duplicate_values
     if duplicate_values.any?
-      "duplicate values: #{duplicate_values.to_sentence}"
+      errors.push "duplicate values: #{duplicate_values.to_sentence}"
     end
   end
 
   def check_for_invalid_values
     if invalid_items.any?
-      "invalid values: #{invalid_items.to_sentence}"
+      errors.push "invalid values: #{invalid_items.to_sentence}"
     end
   end
 
@@ -33,6 +38,6 @@ SudokuGroup = Struct.new(:items) do
   end
 
   def invalid_items
-    filled_out_cells.select { |item| VALID_RANGE.include?(item.to_i) }
+    filled_out_cells.select { |item| VALID_RANGE.exclude?(item.to_i) }
   end
 end
