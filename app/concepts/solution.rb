@@ -12,8 +12,6 @@ class Solution
   end
 
   def valid?
-    errors = []
-
     if not_enough_cells?
       errors.push "need #{expected_cell_count} to play sudoku"
     else
@@ -26,7 +24,7 @@ class Solution
   end
 
   def complete?
-    @cells.select(&:empty).count == 0
+    @cells.select(&:empty?).count == 0
   end
 
   def grid
@@ -57,14 +55,14 @@ class Solution
   end
 
   def row_errors
-    rows.reject(&:valid?).map(&:errors)
+    rows.reject(&:valid?).map(&:errors).flatten
   end
 
   def column_errors
-    columns.reject(&:valid?).map(&:errors)
+    columns.reject(&:valid?).map(&:errors).flatten
   end
 
   def subgrid_errors
-    subgrids.reject(&:valid?).map(&:errors)
+    subgrids.reject(&:valid?).map(&:errors).flatten
   end
 end
