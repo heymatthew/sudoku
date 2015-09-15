@@ -3,16 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .edit_problem {
-  $primary: #ffebee;
-  $primary-hl: #ffcdd2;
-  $secondary: #b71c1c;
-  $secondary-hl: #c62828;
+  $default_dark: #607d8b;
+  $default_light: #eceff1;
+
+  $error_dark: #f44336;
+  $error_light: #ffebee;
 
   input[type=submit] {
     font-size: 1.5em;
 
     display: block;
-    background-color: $primary;
+    background-color: $default_light;
     border: none;
 
     padding: 0.5em 1.5em;
@@ -21,18 +22,6 @@
 
     box-shadow: 0.05em 0.05em 0.05em #999;
     &:hover { box-shadow: 0.1em 0.1em 0.1em #999; }
-
-    @keyframes slidein {
-      from {
-        margin: 0.5em auto;
-        box-shadow: 0.05em 0.05em 0.05em #999;
-      }
-
-      to {
-        box-shadow: 0.1em 0.1em 0.1em #999;
-        margin: 0.4em auto;
-      }
-    }
   }
 
   table.grid {
@@ -50,8 +39,8 @@
 
       &[disabled] {
         font-weight: bold;
-        color: $secondary;
-        border: 1px solid $secondary;
+        color: $default_dark;
+        border: 1px solid $default_dark;
       }
     }
 
@@ -61,7 +50,7 @@
       &:nth-child(-n+3),&:nth-child(n+7) {
         // left 3 columns OR right 3 columns
         td:nth-child(-n+3),:nth-child(n+7) {
-          background-color: $primary;
+          background-color: $default_light;
         }
       }
 
@@ -69,7 +58,7 @@
       &:nth-child(n+4):nth-child(-n+6) {
         // center 3 columns
         td:nth-child(n+4):nth-child(-n+6) {
-          background-color: $primary;
+          background-color: $default_light;
         }
       }
     }
