@@ -15,6 +15,8 @@ class SudokuGroup
     errors.none?
   end
 
+  private
+
   def filled_out_cells
     @filled_out_cells ||= items.reject(&:empty?)
   end
