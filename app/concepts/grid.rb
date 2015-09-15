@@ -8,8 +8,7 @@ class Grid
   attr_reader :values
 
   def initialize(cells)
-    sample_cells = cells.pop(grid_size)
-    @values = break_into_rows(sample_cells)
+    @values = break_into_rows(cells)
   end
 
   def grid_size
