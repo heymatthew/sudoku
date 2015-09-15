@@ -32,7 +32,7 @@ class Grid
   end
 
   def complete?
-    @values.flatten.select(&:empty?).count == 0
+    @values.flatten.none?(&:empty?)
   end
 
   protected
