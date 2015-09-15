@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_filter :lookup_problem, :except => :index
+  before_action :lookup_problem, :except => :index
 
   def index
     @problems = Problem.all
