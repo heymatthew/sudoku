@@ -1,0 +1,8 @@
+<td>
+  <% if cell.nil? %>
+    <input name="cell[]">
+  <% else %>
+    <input value="<%= cell %>" disabled="true">
+    <input type="hidden" value="<%= cell %>" name="cell[]">
+  <% end %>
+</td>

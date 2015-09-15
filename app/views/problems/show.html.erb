@@ -10,16 +10,7 @@
   <table class="grid">
     <% @problem.grid.each do |row| %>
       <tr>
-        <% row.each do |cell| %>
-          <td>
-            <% if cell.nil? %>
-              <input name="cell[]">
-            <% else %>
-              <input value="<%= cell %>" disabled="true">
-              <input type="hidden" value="<%= cell %>" name="cell[]">
-            <% end %>
-          </td>
-        <% end %>
+        <%= render partial: "cell", collection: row %>
       </tr>
     <% end %>
   </table>
