@@ -9,10 +9,12 @@ class ProblemsController < ApplicationController
   end
 
   def update
-    solution = Solution.new(cell_params)
+    grid = Grid.new(cell_params)
+    solution = Solution.new(@problem, grid)
+    solution_checker = SolutionChecker.new(solution)
 
-    if !solution.valid?
-      @errors = solution.errors
+    if !solution_checker.call
+      @errors = solution_checker.errors
     end
 
     render :show
