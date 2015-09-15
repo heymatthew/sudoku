@@ -18,18 +18,17 @@ class GridChecker
 
   def check_rows_for_errors
     row_errors = errors_in_group(@grid.rows)
-    errors.push(*row_errors)
+    errors.concat(row_errors)
   end
 
   def check_columns_for_errors
     column_errors = errors_in_group(@grid.columns)
-    errors.push(*column_errors)
+    errors.concat(column_errors)
   end
 
   def check_subgrids_for_errors
     subgrid_errors = errors_in_group(@grid.subgrids)
-    errors.push(*subgrid_errors)
-    # TODO concat?
+    errors.concat(subgrid_errors)
   end
 
   def errors_in_group(groups)
