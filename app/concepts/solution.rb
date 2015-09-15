@@ -23,6 +23,6 @@ class Solution
   end
 
   def grid_checker
-    @grid_checker ||= GridChecker.new(@grid)
+    @grid_checker ||= SolutionChecker.new(@grid)
   end
 end
