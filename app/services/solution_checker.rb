@@ -1,4 +1,4 @@
-class GridChecker
+class SolutionChecker
   attr_reader :errors
 
   def initialize(grid)

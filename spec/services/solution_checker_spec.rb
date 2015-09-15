@@ -10,8 +10,8 @@ RSpec.shared_examples "a service with errors" do
   end
 end
 
-RSpec.describe GridChecker do
-  subject { GridChecker.new(grid) }
+RSpec.describe SolutionChecker do
+  subject { SolutionChecker.new(grid) }
 
   let(:grid)  { instance_double("Grid") }
 
