@@ -3,11 +3,12 @@ class Grid
   WIDTH = 9
   HEIGHT = 9
 
-  delegate :size, to: :cells
+  delegate :size, to: :values
 
-  def initialize(cells)
-    fail "impossibru grid construction detected" if cells.count != grid_size
+  def initialize(values)
+    fail "impossibru grid construction detected" if values.count != grid_size
 
+    cells = values.map { |value| Cell.new(value) }
     @cells = break_into_rows(cells)
   end
 
@@ -15,7 +16,7 @@ class Grid
     WIDTH * HEIGHT
   end
 
-  def cells
+  def values
     @cells.flatten
   end
 

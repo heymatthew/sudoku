@@ -16,6 +16,10 @@ RSpec.describe Grid do
   }
   let(:grid) { Grid.new(cells) }
 
+  def values_for(cells)
+    cells.map(&:value)
+  end
+
   context "with too few cells" do
     let(:cells) { ['a']*80 }
     it "raises an error" do
@@ -34,11 +38,13 @@ RSpec.describe Grid do
     subject { grid.rows }
 
     it "can find the first row" do
-      expect(subject.first).to eq %w(1 1 1   2 2 2   3 3 3)
+      first_row = values_for subject.first
+      expect(first_row).to eq %w(1 1 1   2 2 2   3 3 3)
     end
 
     it "can find the last row" do
-      expect(subject.last).to eq %w(7 7 7   8 8 8   9 9 9)
+      last_row = values_for subject.last
+      expect(last_row).to eq %w(7 7 7   8 8 8   9 9 9)
     end
   end
 
@@ -46,11 +52,13 @@ RSpec.describe Grid do
     subject { grid.columns }
 
     it "can find the first column" do
-      expect(subject.first).to eq %w(1 1 1   4 4 4   7 7 7)
+      first_column = values_for subject.first
+      expect(first_column).to eq %w(1 1 1   4 4 4   7 7 7)
     end
 
     it "can find the last column" do
-      expect(subject.last).to eq %w(3 3 3    6 6 6    9 9 9)
+      last_column = values_for subject.last
+      expect(last_column).to eq %w(3 3 3    6 6 6    9 9 9)
     end
   end
 
@@ -58,13 +66,15 @@ RSpec.describe Grid do
     subject { grid.subgrids }
 
     it "starts with the top left" do
-      expect(subject.first).to eq %w(1 1 1
-                                     1 1 1
-                                     1 1 1)
+      top_left = values_for subject.first
+      expect(top_left).to eq %w(1 1 1
+                                1 1 1
+                                1 1 1)
     end
 
     it "ends with the bottom right" do
-      expect(subject.last).to eq %w(9 9 9
+      bottom_right = values_for subject.last
+      expect(bottom_right).to eq %w(9 9 9
                                     9 9 9
                                     9 9 9)
     end
