@@ -11,8 +11,10 @@ RSpec.shared_examples "a service with errors" do
 end
 
 RSpec.describe SolutionChecker do
-  subject { SolutionChecker.new(grid) }
+  subject { SolutionChecker.new(solution) }
 
+  let(:solution) { Solution.new(problem, grid) }
+  let(:problem) { instance_double("Problem") }
   let(:grid)  { instance_double("Grid") }
 
   let(:valid_groups) {
