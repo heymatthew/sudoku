@@ -8,6 +8,8 @@ class Grid
   attr_reader :values
 
   def initialize(cells)
+    fail "impossibru grid construction detected" if cells.size != grid_size
+
     @values = break_into_rows(cells)
   end
 

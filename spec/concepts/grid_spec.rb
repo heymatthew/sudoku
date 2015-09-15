@@ -16,6 +16,20 @@ RSpec.describe Grid do
   }
   let(:grid) { Grid.new(cells) }
 
+  context "with too few cells" do
+    let(:cells) { ['a']*80 }
+    it "raises an error" do
+      expect { grid }.to raise_error "impossibru grid construction detected"
+    end
+  end
+
+  context "with too many cells" do
+    let(:cells) { ['a']*82 }
+    it "raises an error" do
+      expect { grid }.to raise_error "impossibru grid construction detected"
+    end
+  end
+
   describe "#rows" do
     subject { grid.rows }
 
