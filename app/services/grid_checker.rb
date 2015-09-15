@@ -7,28 +7,17 @@ class GridChecker
   end
 
   def call
-    check_rows_for_errors
-    check_columns_for_errors
-    check_subgrids_for_errors
+    check(@grid.rows)
+    check(@grid.columns)
+    check(@grid.subgrids)
 
     errors.none?
   end
 
   private
 
-  def check_rows_for_errors
-    row_errors = errors_in_group(@grid.rows)
-    errors.concat(row_errors)
-  end
-
-  def check_columns_for_errors
-    column_errors = errors_in_group(@grid.columns)
-    errors.concat(column_errors)
-  end
-
-  def check_subgrids_for_errors
-    subgrid_errors = errors_in_group(@grid.subgrids)
-    errors.concat(subgrid_errors)
+  def check(groups)
+    errors.concat(errors_in_group(groups))
   end
 
   def errors_in_group(groups)
