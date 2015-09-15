@@ -1,8 +1,8 @@
 class SudokuGroup
   VALID_RANGE = (1..9)
 
-  attr_accessor :errors
-  attr_accessor :items
+  attr_reader :errors
+  attr_reader :items
 
   def initialize(items)
     @items = items
