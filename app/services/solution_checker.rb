@@ -1,15 +1,15 @@
 class SolutionChecker
   attr_reader :errors
 
-  def initialize(grid)
-    @grid = grid
+  def initialize(solution)
+    @solution = solution
     @errors = []
   end
 
   def call
-    check(@grid.rows)
-    check(@grid.columns)
-    check(@grid.subgrids)
+    check(@solution.grid.rows)
+    check(@solution.grid.columns)
+    check(@solution.grid.subgrids)
 
     errors.none?
   end
