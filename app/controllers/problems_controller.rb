@@ -9,6 +9,8 @@ class ProblemsController < ApplicationController
   end
 
   def update
+    solution = Solution.new(cell_params)
+
     if !solution.valid?
       @errors = solution.errors
     end
@@ -17,10 +19,6 @@ class ProblemsController < ApplicationController
   end
 
   private
-
-  def solution
-    @solution ||= Solution.new(cell_params)
-  end
 
   def lookup_problem
     @problem ||= Problem.find(problem_id)
