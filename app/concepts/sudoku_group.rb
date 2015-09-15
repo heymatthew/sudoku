@@ -32,8 +32,9 @@ class SudokuGroup
   end
 
   def duplicate_values
-    filled_out_cells.group_by { |item| item }
-      .select { |item, matching| matching.count > 1 }
+    filled_out_cells
+      .group_by { |cell_value| cell_value }
+      .select { |cell_value, matching| matching.count > 1 }
       .keys
   end
 
