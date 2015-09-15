@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ProblemsController, type: :controller do
+  let(:sample_values) { ([1]*81) }
+  let(:sample_grid) { Grid.new(sample_values) }
+
   describe "#index" do
     subject { assigns(:problems) }
 
@@ -14,7 +17,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     context "when problems are created" do
       before do
-        Problem.create!
+        Problem.create!(grid: sample_grid)
         get :index
       end
 
@@ -25,7 +28,7 @@ RSpec.describe ProblemsController, type: :controller do
   end
 
   describe "#show" do
-    let(:sample_problem) { Problem.create! }
+    let(:sample_problem) { Problem.create!(grid: sample_grid) }
     before { get :show, id: sample_problem.id }
     subject { assigns(:problem) }
 
