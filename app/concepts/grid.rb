@@ -1,5 +1,5 @@
 class Grid
-  SUBGRID_DIMENSIONS = [(0..2),(3..5),(6..8)].product [(0..2),(3..5),(6..8)]
+  SUBGRID_DIMENSIONS = [(0..2),(3..5),(6..8)].product([(0..2),(3..5),(6..8)])
   WIDTH = 9
   HEIGHT = 9
 
