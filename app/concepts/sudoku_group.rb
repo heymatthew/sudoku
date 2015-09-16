@@ -1,6 +1,4 @@
 class SudokuGroup
-  VALID_RANGE = (1..9)
-
   attr_reader :errors
   attr_reader :items
 
@@ -41,6 +39,6 @@ class SudokuGroup
   end
 
   def invalid_items
-    filled_out_cells.select { |item| VALID_RANGE.exclude?(item.to_i) }
+    filled_out_cells.reject(&:valid?)
   end
 end
