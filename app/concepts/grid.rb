@@ -5,11 +5,12 @@ class Grid
 
   delegate :size, to: :values
 
-  def initialize(values)
+  def initialize(values, initial_grid: false)
     fail "impossibru grid construction detected" if values.count != grid_size
 
-    cells = values.map { |value| Cell.new(value) }
-    @cells = break_into_rows(cells)
+    convert_to_cells(values)
+    lock_filled_cells if initial_grid
+    break_cells_into_rows
   end
 
   def grid_size
@@ -40,7 +41,15 @@ class Grid
 
   protected
 
-  def break_into_rows(cells)
-    cells.each_slice(WIDTH).to_a
+  def convert_to_cells(values)
+    @cells = values.map { |value| Cell.new(value) }
+  end
+
+  def lock_filled_cells
+    @cells.reject(&:empty?).each(&:lock_cell)
+  end
+
+  def break_cells_into_rows
+    @cells = @cells.each_slice(WIDTH).to_a
   end
 end
