@@ -33,6 +33,7 @@ class SudokuGroup
 
   def duplicate_values
     filled_out_cells
+      .map(&:value)
       .group_by { |cell_value| cell_value }
       .select { |cell_value, matching| matching.count > 1 }
       .keys
