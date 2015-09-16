@@ -19,15 +19,15 @@ RSpec.describe SolutionChecker do
 
   let(:valid_groups) {
     [
-      %w(1 2 3 4 5 6 7 8 9),
-      %w(1 2 3 4 5 6 7 8 9),
+      %w(1 2 3 4 5 6 7 8 9).map { |value| Cell.new(value) },
+      %w(1 2 3 4 5 6 7 8 9).map { |value| Cell.new(value) },
     ]
   }
   let(:invalid_groups) {
     [
-      %w(1 2 3 4 5 6 7 8 9),
-      %w(1 2 3 4 kaboom! 6 7 8 9),
-      %w(1 2 3 4 5 6 7 8 9),
+      %w(1 2 3 4    5    6 7 8 9).map { |value| Cell.new(value) },
+      %w(1 2 3 4 kaboom! 6 7 8 9).map { |value| Cell.new(value) },
+      %w(1 2 3 4    5    6 7 8 9).map { |value| Cell.new(value) },
     ]
   }
 

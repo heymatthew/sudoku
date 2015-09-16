@@ -2,7 +2,8 @@ require 'rails_helper'
 require_relative 'shared_examples'
 
 RSpec.describe SudokuGroup do
-  subject { SudokuGroup.new(items) }
+  let(:cells) { items.map { |item| Cell.new(item) } }
+  subject { SudokuGroup.new(cells) }
 
   context "with numbers 1-9" do
     let(:items) { %w(1 2 3 4 5 6 7 8 9) }
