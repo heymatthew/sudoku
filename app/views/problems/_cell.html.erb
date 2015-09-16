@@ -1,8 +1,8 @@
 <td>
-  <% if cell.nil? %>
-    <input name="cell[]">
+  <% if cell.locked_to_problem %>
+    <input value="<%= cell.value %>" disabled="true">
+    <input type="hidden" value="<%= cell.value %>" name="cell[]">
   <% else %>
-    <input value="<%= cell %>" disabled="true">
-    <input type="hidden" value="<%= cell %>" name="cell[]">
+    <input name="cell[]">
   <% end %>
 </td>

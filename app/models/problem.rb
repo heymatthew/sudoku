@@ -9,7 +9,7 @@ class Problem < ActiveRecord::Base
   end
 
   def grid
-    Grid.new(split_values)
+    Grid.new(split_values, initial_grid: true)
   end
 
   private
