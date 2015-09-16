@@ -1,10 +1,16 @@
-Cell = Struct.new(:value) do
+class Cell
   VALID_RANGE = (1..9)
 
   delegate :empty?, :to_s, to: :value
 
   attr_accessor :locked_to_problem
-  attr_accessor :error_flag
+  attr_accessor :errors
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+    @errors = []
+  end
 
   def lock_cell
     self.locked_to_problem = true
