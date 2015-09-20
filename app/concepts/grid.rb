@@ -26,7 +26,7 @@ class Grid
   end
 
   def columns
-    @cells.transpose
+    rows.transpose
   end
 
   def subgrids
