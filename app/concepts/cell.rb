@@ -1,7 +1,7 @@
 class Cell
   VALID_RANGE = (1..9)
 
-  delegate :empty?, :to_s, to: :value
+  delegate :to_s, to: :value
 
   attr_accessor :locked
   attr_accessor :errors
@@ -17,11 +17,15 @@ class Cell
     self
   end
 
+  def locked?
+    locked
+  end
+
   def valid?
-    VALID_RANGE.include?(value.to_i)
+    VALID_RANGE.include?(value)
   end
 
   def set?
-    !value.nil? && !value.empty?
+    !value.nil?
   end
 end

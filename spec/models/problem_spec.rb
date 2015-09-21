@@ -75,10 +75,7 @@ RSpec.describe Problem, type: :model do
     end
 
     context "after grid has been set" do
-      before {
-        problem.grid = grid
-        binding.pry
-      }
+      before { problem.grid = grid }
 
       it "returns instances of Grid" do
         expect(problem.grid).to be_instance_of Grid

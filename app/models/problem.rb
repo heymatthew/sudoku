@@ -1,16 +1,15 @@
-class Problem < ActiveRecord::Base
-  KEEP_TRAILING_SPACES = -1
-  SEPARATOR = ','
+require 'json'
 
-  validates :values, presence: true, format: {
-    with:    /\A(?:\d?,){80}\d?\z/,
-    message: "requires 81 single digits separated by commas",
+class Problem < ActiveRecord::Base
+  serialize :values, JSON
+
+  validates :values, {
+    presence: true,
+    length:   { is: Grid::SIZE }
   }
 
   composed_of :grid, {
     class_name: "Grid",
-    mapping:     %w(values values),
-    converter:   ->(grid_instance) { grid_instance.values.join(SEPARATOR) },
-    constructor: ->(values_string) { Grid.new(values_string.split(SEPARATOR, KEEP_TRAILING_SPACES)) },
+    mapping:    [%w(values values)]
   }
 end
