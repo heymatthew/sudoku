@@ -22,6 +22,7 @@ class Cell
   end
 
   def valid?
+    return true if !set?
     VALID_RANGE.include?(value)
   end
 

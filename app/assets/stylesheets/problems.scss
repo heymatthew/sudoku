@@ -63,4 +63,15 @@
       }
     }
   }
+
+  td.error {
+    background-color: $error_light !important;
+
+    input {
+      color: $error_dark;
+      &[disabled] {
+        // border: 1px solid $error_dark;
+      }
+    }
+  }
 }

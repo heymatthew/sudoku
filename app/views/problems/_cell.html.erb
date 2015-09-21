@@ -1,7 +1,14 @@
-<td>
-  <% if cell.locked_to_problem %>
-    <input value="<%= cell.value %>" disabled="true">
-    <input type="hidden" value="<%= cell.value %>" name="cell[]">
+<td
+  <% if cell.errors.any? %>
+    class="error"
+    title="<%= cell.errors.to_sentence %>"
+  <% end %>
+>
+  <% if cell.locked? %>
+    <input disabled="true" value="<%= cell.value %>">
+    <input name="cell[]" type="hidden" value="<%= cell.value %>">
+  <% elsif cell.value %>
+    <input name="cell[]" value="<%= cell.value %>">
   <% else %>
     <input name="cell[]">
   <% end %>

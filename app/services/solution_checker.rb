@@ -1,29 +1,55 @@
 class SolutionChecker
-  attr_reader :errors
-
-  def initialize(solution)
-    @solution = solution
+  def initialize(grid:)
+    @grid = grid
     @errors = []
   end
 
   def call
-    check(@solution.grid.rows)
-    check(@solution.grid.columns)
-    check(@solution.grid.subgrids)
+    mark_groups_with_duplicates('row', @grid.rows)
+    mark_groups_with_duplicates('column', @grid.columns)
+    mark_groups_with_duplicates('subgrid', @grid.subgrids)
+    mark_invalid_cells_in_grid
 
     errors.none?
   end
 
-  private
-
-  def check(groups)
-    errors.concat(errors_in_group(groups))
+  def errors
+    grid_errors.flatten
   end
 
-  def errors_in_group(groups)
-    groups.map { |group| SudokuGroup.new(group) } # Wrap in a Sudoku grouping
-          .reject(&:valid?)                       # ...keep groups that fail validation
-          .map(&:errors)                          # ...pull their errors
-          .flatten                                # ...return as a single list
+  private
+
+  def mark_groups_with_duplicates(group_name, groupings)
+    groupings
+      .select { |group_cells| duplicates_in_group(group_cells).any? }
+      .each   { |group_cells| mark_cells_as_duplicate(group_name, group_cells) }
+  end
+
+  def duplicates_in_group(cells)
+    cells
+      .map(&:value)
+      .group_by { |cell_value| cell_value }
+      .select   { |cell_value, matching| matching.count > 1 }
+      .keys
+  end
+
+  def mark_cells_as_duplicate(group_name, cells)
+    cells.each do |cell|
+      cell.errors.push "duplicate values in #{group_name}"
+    end
+  end
+
+  def mark_invalid_cells_in_grid
+    invalid_cells.each do |cell|
+      cell.errors.push "invalid value #{cell.value}"
+    end
+  end
+
+  def invalid_cells
+    @grid.cells.reject(&:valid?)
+  end
+
+  def grid_errors
+    @grid_errors ||= @grid.cells.map(&:errors).reject(&:empty?)
   end
 end
