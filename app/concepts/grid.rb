@@ -7,31 +7,32 @@ class Grid
 
   def initialize(values, initial_grid: false)
     fail "impossibru grid construction detected" if values.count != grid_size
+    @values = values
+  end
 
-    convert_to_cells(values)
-    lock_filled_cells if initial_grid
-    break_cells_into_rows
+  def cells
+    @cells ||= build_cells_from_values
+  end
+
+  def lock_set_cells
+    set_cells.each(&:lock_cell)
   end
 
   def grid_size
     WIDTH * HEIGHT
   end
 
-  def values
-    @cells.flatten
-  end
-
   def rows
-    @cells
+    @rows ||= cells.each_slice(WIDTH).to_a
   end
 
   def columns
-    rows.transpose
+    @columns ||= rows.transpose
   end
 
   def subgrids
-    SUBGRID_DIMENSIONS.map do |row_range, column_range|
-      @cells.slice(row_range).transpose.slice(column_range).flatten
+    @subgrids ||= SUBGRID_DIMENSIONS.map do |row_range, column_range|
+      rows.slice(row_range).transpose.slice(column_range).flatten
     end
   end
 
@@ -39,17 +40,10 @@ class Grid
     @cells.flatten.none?(&:empty?)
   end
 
-  protected
+  private
 
-  def convert_to_cells(values)
-    @cells = values.map { |value| Cell.new(value) }
-  end
-
-  def lock_filled_cells
-    @cells.reject(&:empty?).each(&:lock_cell)
-  end
-
-  def break_cells_into_rows
-    @cells = @cells.each_slice(WIDTH).to_a
+  def build_cells_from_values
+    @values.map { |value| Cell.new(value) }
+           .collect(&:lock_if_set)
   end
 end
