@@ -19,6 +19,8 @@ class Grid
         cell.value = guess_value
       end
     end
+
+    self
   end
 
   def values
@@ -44,7 +46,7 @@ class Grid
   end
 
   def complete?
-    @cells.flatten.none?(&:empty?)
+    @cells.all?(&:set?)
   end
 
   private
