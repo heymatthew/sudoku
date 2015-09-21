@@ -1,21 +1,16 @@
 class Problem < ActiveRecord::Base
+  KEEP_TRAILING_SPACES = -1
+  SEPARATOR = ','
+
   validates :values, presence: true, format: {
-    with: /\A(?:\d?,){80}\d?\z/,
-    message: "requires 81 single didgits separated by commas"
+    with:    /\A(?:\d?,){80}\d?\z/,
+    message: "requires 81 single digits separated by commas",
   }
 
-  def grid=(grid)
-    self.values = grid.values.join(",")
-  end
-
-  def grid
-    Grid.new(split_values, initial_grid: true)
-  end
-
-  private
-
-  def split_values
-    keep_trailing_empties = -1
-    values.split(',', keep_trailing_empties)
-  end
+  composed_of :grid, {
+    class_name: "Grid",
+    mapping:     %w(values values),
+    converter:   ->(grid_instance) { grid_instance.values.join(SEPARATOR) },
+    constructor: ->(values_string) { Grid.new(values_string.split(SEPARATOR, KEEP_TRAILING_SPACES)) },
+  }
 end
