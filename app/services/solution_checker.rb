@@ -1,18 +1,12 @@
 class SolutionChecker
-  RowError = Struct.new(:row) do
-    def include?(cell)
-      cell.row == row
-    end
-  end
-
-  def initialize(grid:)
+  def initialize(grid)
     @grid = grid
     @errors = []
   end
 
   def call
-    mark_groups_with_duplicates('row', @grid.rows)
-    mark_groups_with_duplicates('column', @grid.columns)
+    mark_groups_with_duplicates('row',     @grid.rows)
+    mark_groups_with_duplicates('column',  @grid.columns)
     mark_groups_with_duplicates('subgrid', @grid.subgrids)
     mark_invalid_cells_in_grid
 
