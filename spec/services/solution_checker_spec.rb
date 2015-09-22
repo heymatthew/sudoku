@@ -8,7 +8,7 @@ end
 
 RSpec.describe SolutionChecker do
   let(:grid) { instance_double("Grid") }
-  subject { SolutionChecker.new(grid: grid) }
+  subject { SolutionChecker.new(grid) }
 
   let(:valid_groups) {
     [
