@@ -79,4 +79,38 @@ RSpec.describe Grid do
                                     9 9 9)
     end
   end
+
+  context "composed with submissions" do
+    let(:cells) {
+      [nil].concat(
+        %w(1 1   2 2 2   3 3 3
+         1 1 1   2 2 2   3 3 3
+         1 1 1   2 2 2   3 3 3
+
+         4 4 4   5 5 5   6 6 6
+         4 4 4   5 5 5   6 6 6
+         4 4 4   5 5 5   6 6 6
+
+         7 7 7   8 8 8   9 9 9
+         7 7 7   8 8 8   9 9 9
+         7 7 7   8 8 8   9 9 9)
+      )
+    }
+    let(:submission) { grid.values }
+    let(:my_number) { '1' }
+    before { submission[0] = my_number }
+    subject { grid.compose_with(guess: submission) }
+
+    it "doesn't lock submitted cells" do
+      expect(subject.cells.first).to_not be_locked
+    end
+
+    it "leaves locked cells alone" do
+      expect(subject.cells.last).to be_locked
+    end
+
+    it "remembers values that you submitted" do
+      expect(subject.cells.first.value).to be my_number.to_i
+    end
+  end
 end
