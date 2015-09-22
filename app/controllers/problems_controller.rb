@@ -9,7 +9,8 @@ class ProblemsController < ApplicationController
   end
 
   def update
-    grid_submission = @problem.grid.compose_with(guess: guess_params)
+    grid_submission = @problem.grid.compose_with_guess(guess_params)
+    # TODO no named arguments
     solution_checker = SolutionChecker.new(grid: grid_submission)
 
     if !solution_checker.call
