@@ -7,6 +7,11 @@ class Cell
   attr_accessor :errors
   attr_reader :value
 
+  def initialize(new_value)
+    @value = new_value
+    @errors = []
+  end
+
   def value=(new_value)
     return if locked?
 
@@ -15,11 +20,6 @@ class Cell
     else
       @value = new_value
     end
-  end
-
-  def initialize(value)
-    @value = value
-    @errors = []
   end
 
   def lock_if_set

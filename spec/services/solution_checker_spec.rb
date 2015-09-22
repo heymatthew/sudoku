@@ -4,30 +4,23 @@ RSpec.shared_examples "a service with errors" do
   it "responds to #call with failure" do
     expect(subject.call).to be false
   end
-
-  it "sets #errors on #call" do
-    expect { subject.call }.to change { subject.errors }.from([])
-  end
 end
 
 RSpec.describe SolutionChecker do
-  subject { SolutionChecker.new(solution) }
-
-  let(:solution) { Solution.new(problem, grid) }
-  let(:problem) { instance_double("Problem") }
-  let(:grid)  { instance_double("Grid") }
+  let(:grid) { instance_double("Grid") }
+  subject { SolutionChecker.new(grid: grid) }
 
   let(:valid_groups) {
     [
-      %w(1 2 3 4 5 6 7 8 9).map { |value| Cell.new(value) },
-      %w(1 2 3 4 5 6 7 8 9).map { |value| Cell.new(value) },
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].map { |value| Cell.new(value) },
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].map { |value| Cell.new(value) },
     ]
   }
   let(:invalid_groups) {
     [
-      %w(1 2 3 4    5    6 7 8 9).map { |value| Cell.new(value) },
-      %w(1 2 3 4 kaboom! 6 7 8 9).map { |value| Cell.new(value) },
-      %w(1 2 3 4    5    6 7 8 9).map { |value| Cell.new(value) },
+      [1, 2, 3, 4,     5    , 6, 7, 8, 9].map { |value| Cell.new(value) },
+      [1, 2, 3, 4, 'kaboom!', 6, 7, 8, 9].map { |value| Cell.new(value) },
+      [1, 2, 3, 4,     5    , 6, 7, 8, 9].map { |value| Cell.new(value) },
     ]
   }
 
@@ -36,6 +29,7 @@ RSpec.describe SolutionChecker do
       allow(grid).to receive(:rows).and_return(valid_groups)
       allow(grid).to receive(:columns).and_return(valid_groups)
       allow(grid).to receive(:subgrids).and_return(valid_groups)
+      allow(grid).to receive(:cells).and_return(valid_groups.flatten)
     end
 
     it "responds to #call with success" do
@@ -52,6 +46,7 @@ RSpec.describe SolutionChecker do
       allow(grid).to receive(:rows).and_return(invalid_groups)
       allow(grid).to receive(:columns).and_return(valid_groups)
       allow(grid).to receive(:subgrids).and_return(valid_groups)
+      allow(grid).to receive(:cells).and_return(invalid_groups.flatten)
     end
 
     include_examples "a service with errors"
@@ -62,6 +57,7 @@ RSpec.describe SolutionChecker do
       allow(grid).to receive(:rows).and_return(valid_groups)
       allow(grid).to receive(:columns).and_return(invalid_groups)
       allow(grid).to receive(:subgrids).and_return(valid_groups)
+      allow(grid).to receive(:cells).and_return(invalid_groups.flatten)
     end
 
     include_examples "a service with errors"
@@ -72,6 +68,7 @@ RSpec.describe SolutionChecker do
       allow(grid).to receive(:rows).and_return(valid_groups)
       allow(grid).to receive(:columns).and_return(valid_groups)
       allow(grid).to receive(:subgrids).and_return(invalid_groups)
+      allow(grid).to receive(:cells).and_return(invalid_groups.flatten)
     end
 
     include_examples "a service with errors"
