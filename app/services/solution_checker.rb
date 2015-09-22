@@ -1,4 +1,10 @@
 class SolutionChecker
+  RowError = Struct.new(:row) do
+    def include?(cell)
+      cell.row == row
+    end
+  end
+
   def initialize(grid:)
     @grid = grid
     @errors = []

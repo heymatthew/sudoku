@@ -1,5 +1,6 @@
 class Cell
-  VALID_RANGE = (1..9)
+  # TODO Active model validations?
+  VALID_INPUT_RANGE = (1..9)
 
   delegate :to_s, to: :value
 
@@ -9,6 +10,7 @@ class Cell
 
   def initialize(new_value)
     @value = new_value
+    @locked = new_value.present?
     @errors = []
   end
 
@@ -22,18 +24,13 @@ class Cell
     end
   end
 
-  def lock_if_set
-    self.locked = true if set?
-    self
-  end
-
   def locked?
     locked
   end
 
   def valid?
     return true if !set?
-    VALID_RANGE.include?(value)
+    VALID_INPUT_RANGE.include?(value)
   end
 
   def set?

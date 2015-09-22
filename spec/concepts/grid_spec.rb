@@ -23,14 +23,14 @@ RSpec.describe Grid do
   context "with too few cells" do
     let(:cells) { ['a']*80 }
     it "raises an error" do
-      expect { grid }.to raise_error "impossibru grid construction detected"
+      expect { grid }.to raise_error(ArgumentError)
     end
   end
 
   context "with too many cells" do
     let(:cells) { ['a']*82 }
     it "raises an error" do
-      expect { grid }.to raise_error "impossibru grid construction detected"
+      expect { grid }.to raise_error(ArgumentError)
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe Grid do
     let(:submission) { grid.values }
     let(:my_number) { '1' }
     before { submission[0] = my_number }
-    subject { grid.compose_with(guess: submission) }
+    subject { grid.compose_with_guess(submission) }
 
     it "doesn't lock submitted cells" do
       expect(subject.cells.first).to_not be_locked

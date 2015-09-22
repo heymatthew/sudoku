@@ -7,12 +7,17 @@ class Grid
   delegate :size, to: :values
 
   def initialize(values)
-    fail "impossibru grid construction detected" if values.count != SIZE
-    @values = values
+    if values.count != SIZE
+      raise ArgumentError, "initial values don't match expected size"
+    end
+
+    @values = values.clone
   end
 
-  def compose_with(guess:)
-    fail "impossibru grid construction detected" if guess.count != SIZE
+  def compose_with_guess(guess)
+    if guess.count != SIZE
+      raise ArgumentError, "composed guess doesn't match expected size"
+    end
 
     cells.zip(guess).each do |cell, guess_value|
       cell.value = guess_value
@@ -51,7 +56,7 @@ class Grid
 
   def construct_cells_from_values
     @values.map do |value|
-      Cell.new(value).lock_if_set
+      Cell.new(value)
     end
   end
 end
