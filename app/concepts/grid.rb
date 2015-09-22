@@ -15,9 +15,7 @@ class Grid
     fail "impossibru grid construction detected" if guess.count != SIZE
 
     cells.zip(guess).each do |cell, guess_value|
-      unless cell.locked?
-        cell.value = guess_value
-      end
+      cell.value = guess_value
     end
 
     self
@@ -52,7 +50,8 @@ class Grid
   private
 
   def construct_cells_from_values
-    @values.map { |value| Cell.new(value) }
-           .collect(&:lock_if_set)
+    @values.map do |value|
+      Cell.new(value).lock_if_set
+    end
   end
 end
