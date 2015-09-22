@@ -5,7 +5,17 @@ class Cell
 
   attr_accessor :locked
   attr_accessor :errors
-  attr_accessor :value
+  attr_reader :value
+
+  def value=(new_value)
+    return if locked?
+
+    if new_value.match(/\A\d\z/)
+      @value = new_value.to_i
+    else
+      @value = new_value
+    end
+  end
 
   def initialize(value)
     @value = value

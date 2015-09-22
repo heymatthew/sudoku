@@ -9,14 +9,14 @@ class ProblemsController < ApplicationController
   end
 
   def update
-    submission = @problem.grid.compose_with(guess: guess_params)
-    solution_checker = SolutionChecker.new(grid: submission)
+    grid_submission = @problem.grid.compose_with(guess: guess_params)
+    solution_checker = SolutionChecker.new(grid: grid_submission)
 
     if !solution_checker.call
       @errors = solution_checker.errors
     end
 
-    @game_won = @errors.nil? && submission.complete?
+    @you_won = @errors.nil? && grid_submission.complete?
 
     render :show
   end
@@ -32,8 +32,6 @@ class ProblemsController < ApplicationController
   end
 
   def guess_params
-    params.require(:cell).map do |value|
-      value.empty? ? nil : value.to_i
-    end
+    params.require(:cell)
   end
 end
