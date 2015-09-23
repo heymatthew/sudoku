@@ -9,7 +9,7 @@ class Cell
   attr_reader :value
 
   def initialize(new_value)
-    @value = new_value
+    @value = new_value.to_s
     @locked = new_value.present?
     @errors = []
   end
@@ -30,10 +30,14 @@ class Cell
 
   def valid?
     return true if !set?
-    VALID_INPUT_RANGE.include?(value)
+    VALID_INPUT_RANGE.include?(value.to_i)
   end
 
   def set?
-    !value.nil?
+    !value.nil? && !empty?
+  end
+
+  def empty?
+    value.to_s.empty?
   end
 end

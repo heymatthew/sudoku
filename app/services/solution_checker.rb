@@ -28,6 +28,8 @@ class SolutionChecker
   def duplicates_in_group(cells)
     cells
       .map(&:value)
+      .map(&:to_s)
+      .reject(&:empty?)
       .group_by { |cell_value| cell_value }
       .select   { |cell_value, matching| matching.count > 1 }
       .keys
