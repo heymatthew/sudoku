@@ -55,8 +55,6 @@ class Grid
   private
 
   def construct_cells_from_values
-    @values.map do |value|
-      Cell.new(value)
-    end
+    @values.map { |value| Cell.new(value) }
   end
 end

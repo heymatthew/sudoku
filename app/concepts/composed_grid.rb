@@ -1,4 +1,8 @@
-ComposedGrid = Struct.new(:problem_grid, :submission_grid) do
+class ComposedGrid
+  def initialize(problem_grid, submission_grid)
+    @problem_grid, @submission_grid = problem_grid, submission_grid
+  end
+
   def rows
     @rows ||= groups_for(:rows).cells
   end
@@ -13,14 +17,14 @@ ComposedGrid = Struct.new(:problem_grid, :submission_grid) do
 
   private
 
-  def groups_for(property)
-    zipped(property).map do |problem_prop, submission_prop|
+  def groups_for(group_type)
+    zipped_groups(group_type).map do |problem_prop, submission_prop|
       ComposedGroup.new(problem_prop, submission_prop)
     end
   end
 
-  def zipped(property)
-    problem_grid.send(property)
-      .zip(submission_grid.send(property))
+  def zipped_groups(group_type)
+    problem_grid.send(group_type)
+      .zip(submission_grid.send(group_type))
   end
 end
