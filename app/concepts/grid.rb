@@ -25,6 +25,6 @@ class Grid
   end
 
   def complete?
-    values.select(&:nil?).none?
+    @cells.select(&:nil?).count == 0
   end
 end
