@@ -1,43 +1,17 @@
 class Cell
-  # TODO Active model validations?
+  include ActiveModel::Model
+
   VALID_INPUT_RANGE = (1..9)
+
+  attr_accessor :value, :locked
 
   delegate :to_s, to: :value
 
-  attr_accessor :locked
-  attr_accessor :errors
-  attr_reader :value
+  validates :value,
+    allow_nil: true,
+    numericality: { only_integer: true },
+    inclusion: { in: VALID_INPUT_RANGE }
 
-  def initialize(new_value)
-    @value = new_value.to_s
-    @locked = new_value.present?
-    @errors = []
-  end
-
-  def value=(new_value)
-    return if locked?
-
-    if new_value.match(/\A\d\z/)
-      @value = new_value.to_i
-    else
-      @value = new_value
-    end
-  end
-
-  def locked?
-    locked
-  end
-
-  def valid?
-    return true if !set?
-    VALID_INPUT_RANGE.include?(value.to_i)
-  end
-
-  def set?
-    !value.nil? && !empty?
-  end
-
-  def empty?
-    value.to_s.empty?
-  end
+  validates :locked,
+    inclusion: { in: [true, false] }
 end

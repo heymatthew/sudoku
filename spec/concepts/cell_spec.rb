@@ -1,63 +1,74 @@
 require 'rails_helper'
 
-RSpec.shared_examples "cell is valid" do
-  it "is #valid?" do
-    expect(subject).to be_valid
-  end
-
-  it "presents value as a string" do
-    expect(subject.value).to eq input.to_s
-  end
-end
-
-RSpec.shared_examples "cell is not valid" do
-  it "is not #valid?" do
-    expect(subject).to_not be_valid
-  end
-
-  it "presents value as a string" do
-    expect(subject.value).to eq input.to_s
-  end
-end
-
 RSpec.describe Cell do
-  subject { Cell.new(input) }
+  describe "#value" do
+    subject { Cell.new(value: value, locked: true) }
 
-  context "when input is positive integer" do
-    let(:input) { 9 }
-    include_examples "cell is valid"
-  end
+    context "is positive integer" do
+      let(:value) { 9 }
+      it "is #valid?" do
+        expect(subject).to be_valid
+      end
+    end
 
-  context "when input is nil" do
-    let(:input) { nil }
-    include_examples "cell is valid"
+    context "is nil" do
+      let(:value) { nil }
+      it "is #valid?" do
+        expect(subject).to be_valid
+      end
+    end
 
-    it "shows up as the empty string" do
-      expect(subject.value).to eq ""
+    context "just out of lower bound" do
+      let(:value) { 0 }
+      it "is not #valid?" do
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context "just out of upper bound" do
+      let(:value) { 10 }
+      it "is not #valid?" do
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context "is empty string" do
+      let(:value) { "" }
+      it "is not #valid?" do
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context "is negative" do
+      let(:value) { -1 }
+      it "is not #valid?" do
+        expect(subject).to_not be_valid
+      end
     end
   end
 
-  context "when input is empty string" do
-  end
+  describe "#locked" do
+    subject { Cell.new(locked: locked) }
 
-  context "when input is negative" do
-    let(:input) { -1 }
-  end
-
-  context "when input is == 0" do
-    let(:input) { 0 }
-    it "is not #valid?" do
-      expect(subject).to_not be_valid
+    context "when true" do
+      let(:locked) { true }
+      it "is #valid?" do
+        expect(subject).to be_valid
+      end
     end
-  end
 
-  context "when input is > 9" do
-    let(:input) { 10 }
-    it "is not #valid?" do
-      expect(subject).to_not be_valid
+    context "when false" do
+      let(:locked) { true }
+      it "is #valid?" do
+        expect(subject).to be_valid
+      end
     end
-  end
 
-  context "when setting value" do
+    context "when not specified" do
+      let(:locked) { nil }
+      it "is not #valid?" do
+        expect(subject).to_not be_valid
+      end
+    end
   end
 end
