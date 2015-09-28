@@ -2,7 +2,7 @@
 
 <%= form_for @problem do |form| %>
   <table class="grid">
-    <% @problem.grid.rows.each do |row| %>
+    <% @grid.rows.each do |row| %>
       <tr>
         <%= render partial: "cell", collection: row %>
       </tr>
