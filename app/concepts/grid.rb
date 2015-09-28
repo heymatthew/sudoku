@@ -25,6 +25,12 @@ class Grid
   end
 
   def complete?
-    @cells.select(&:nil?).count == 0
+    values.none?(&:nil?)
+  end
+
+  private
+
+  def values
+    @cells.map(&:value)
   end
 end
