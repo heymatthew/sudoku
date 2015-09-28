@@ -3,7 +3,7 @@ class ComposeGrids
     @problem_grid, @submitted_grid = problem_grid, submitted_grid
   end
 
-  def grid
+  def call
     Grid.new(cells: composed_cells)
   end
 

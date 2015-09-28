@@ -4,7 +4,7 @@
     title="<%= cell.errors.to_sentence %>"
   <% end %>
 >
-  <% if cell.locked? %>
+  <% if cell.locked %>
     <input disabled="true" value="<%= cell.value %>">
     <input name="cell[]" type="hidden" value="<%= cell.value %>">
   <% elsif cell.value %>

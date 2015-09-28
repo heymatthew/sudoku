@@ -44,7 +44,7 @@ RSpec.describe ComposeGrids do
   }
 
   it "represents values from submitted grid" do
-    combined_values = subject.grid.cells.map(&:value)
+    combined_values = subject.call.cells.map(&:value)
     expect(combined_values).to eq submitted_values
   end
 
@@ -52,7 +52,7 @@ RSpec.describe ComposeGrids do
     let(:submitted_grid) { bad_grid }
 
     it "doesn't let you override those cells" do
-      combined_values = subject.grid.cells.map(&:value)
+      combined_values = subject.call.cells.map(&:value)
       expect(combined_values).to_not eq hacked_values
     end
   end
