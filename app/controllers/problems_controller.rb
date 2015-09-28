@@ -28,7 +28,11 @@ class ProblemsController < ApplicationController
 
   def setup_submitted_grid
     cells = guess_params.map do |param|
-      Cell.new(value: param)
+      if param.empty?
+        Cell.new(value: nil)
+      else
+        Cell.new(value: param)
+      end
     end
 
     @submitted_grid = Grid.new(cells: cells)
