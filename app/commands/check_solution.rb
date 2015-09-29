@@ -5,10 +5,10 @@ class CheckSolution
   end
 
   def call
-    check(:rows)
-    check(:columns)
-    check(:subgrids)
-    check_cells
+    mark_errors_in(solution_grid.rows,     'row')
+    mark_errors_in(solution_grid.columns,  'column')
+    mark_errors_in(solution_grid.subgrids, 'subgrid')
+    apply_errors_to_invalid_cells
 
     solution_grid
   end
@@ -23,23 +23,23 @@ class CheckSolution
     @submitted_grid.cells.map { |cell| SolutionCell.new(cell) }
   end
 
-  def check(method)
-    find_duplicate_cells_in(method).each do |cell|
-      cell.errors << "duplicate values in #{method.to_s}"
+  def mark_errors_in(cell_groups, hint)
+    filter_duplicate_cells_in(cell_groups).flatten.each do |cell|
+      cell.errors << "duplicate values in #{hint}"
     end
   end
 
-  def find_duplicate_cells_in(method)
-    solution_grid.send(method).select do |cells|
+  def filter_duplicate_cells_in(cell_groups)
+    cell_groups.select do |cells|
       cells
         .map(&:underlying_cell)
         .reject(&:partial_answer?)
         .group_by(&:value)
         .any? { |grouping, matches| matches.count > 1 }
-    end.flatten
+    end
   end
 
-  def check_cells
+  def apply_errors_to_invalid_cells
     invalid_cells.each do |cell|
       cell.errors << "invalid value #{cell.value}"
     end
