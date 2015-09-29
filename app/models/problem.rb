@@ -1,5 +1,3 @@
-require 'json'
-
 class Problem < ActiveRecord::Base
   serialize :values, JSON
 
