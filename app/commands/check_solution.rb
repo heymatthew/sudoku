@@ -30,15 +30,13 @@ class CheckSolution
   end
 
   def find_duplicate_cells_in(method)
-    duplicate_groups = solution_grid.send(method).select do |cells|
+    solution_grid.send(method).select do |cells|
       cells
         .map(&:underlying_cell)
-        .reject(&:partial_answer?) # allow partial answers
+        .reject(&:partial_answer?)
         .group_by(&:value)
         .any? { |grouping, matches| matches.count > 1 }
-    end
-
-    duplicate_groups.flatten
+    end.flatten
   end
 
   def check_cells
