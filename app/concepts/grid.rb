@@ -1,10 +1,11 @@
 class Grid
   include ActiveModel::Model
 
-  SUBGRID_DIMENSIONS = [(0..2),(3..5),(6..8)].product([(0..2),(3..5),(6..8)])
-  WIDTH = 9
-  HEIGHT = 9
-  SIZE = WIDTH * HEIGHT
+  DIVISIONS          = [0..2, 3..5, 6..8]
+  SUBGRID_DIMENSIONS = DIVISIONS.product(DIVISIONS)
+  WIDTH              = 9
+  HEIGHT             = 9
+  SIZE               = WIDTH * HEIGHT
 
   attr_accessor :cells
 
@@ -25,7 +26,7 @@ class Grid
   end
 
   def complete?
-    values.none?(&:nil?)
+    values.all?
   end
 
   private
