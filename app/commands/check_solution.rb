@@ -24,44 +24,30 @@ class CheckSolution
   end
 
   def check(method)
-    zipped_groups_with_duplicates(method).each do |submitted_cells, solution_cells|
-      mark_cells_as_duplicate(method.to_s, solution_cells)
+    find_duplicate_cells_in(method).each do |cell|
+      cell.errors << "duplicate values in #{method.to_s}"
     end
   end
 
-  def zipped_groups_with_duplicates(method)
-    zipped_groups(method).select do |submitted_cells, solution_cells|
-      submitted_cells
-        .select(&:value) # don't check null cells
+  def find_duplicate_cells_in(method)
+    duplicate_groups = solution_grid.send(method).select do |cells|
+      cells
+        .map(&:underlying_cell)
+        .reject(&:partial_answer?) # allow partial answers
         .group_by(&:value)
-        .any? { |grouped_value, matching| matching.count > 1 }
+        .any? { |grouping, matches| matches.count > 1 }
     end
-  end
 
-  def zipped_groups(method)
-    @submitted_grid.send(method).zip(solution_grid.send(method))
-  end
-
-  def mark_cells_as_duplicate(group_name, cells)
-    cells.each do |cell|
-      cell.errors.push "duplicate values in #{group_name}"
-    end
+    duplicate_groups.flatten
   end
 
   def check_cells
-    invalid_cell_pairs.each do |submitted_cell, solution_cell|
-      error_message = "invalid value #{submitted_cell.value}"
-      solution_cell.errors.push(error_message)
+    invalid_cells.each do |cell|
+      cell.errors << "invalid value #{cell.value}"
     end
   end
 
-  def invalid_cell_pairs
-    zipped_groups(:cells).reject do |submitted_cell, solution_cell|
-      submitted_cell.valid?
-    end
-  end
-
-  def valid_cells
-    @grid.cells
+  def invalid_cells
+    solution_grid.cells.reject { |cell| cell.underlying_cell.valid? }
   end
 end
