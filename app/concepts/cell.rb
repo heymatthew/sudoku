@@ -14,4 +14,8 @@ class Cell
 
   validates :locked,
     inclusion: { in: [true, false] }
+
+  def partial_answer?
+    value.nil?
+  end
 end
