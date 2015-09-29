@@ -1,6 +1,7 @@
 class ComposeGrids
   def initialize(problem_grid, submitted_grid)
-    @problem_grid, @submitted_grid = problem_grid, submitted_grid
+    @problem_grid   = problem_grid
+    @submitted_grid = submitted_grid
   end
 
   def call
@@ -10,7 +11,7 @@ class ComposeGrids
   private
 
   def composed_cells
-    zipped_cells.each.map do |problem_cell, submitted_cell|
+    zipped_cells.map do |problem_cell, submitted_cell|
       Cell.new(
         locked: problem_cell.locked,
         value:  problem_cell.value || submitted_cell.value
