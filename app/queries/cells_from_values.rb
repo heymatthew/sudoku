@@ -6,7 +6,7 @@ class CellsFromValues
   def call
     @values.map do |param|
       if param.empty?
-        Cell.new(value: nil)
+        Cell.new
       elsif param.match(/\d+/)
         Cell.new(value: param.to_i)
       else
