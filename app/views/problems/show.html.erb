@@ -1,15 +1,13 @@
-<!-- TODO harlem shake on success -->
-
 <%= form_for @problem do |form| %>
   <table class="grid">
     <% @grid.rows.each do |row| %>
       <tr>
-        <%= render partial: "cell", collection: row %>
+        <% row.each do |cell| %>
+          <%= cell_tag cell %>
+        <% end %>
       </tr>
     <% end %>
   </table>
 
-  <% if !@you_won %>
-    <%= form.submit "Submit Solution" %>
-  <% end %>
+  <%= form.submit "Submit Solution" unless @you_won %>
 <% end %>
