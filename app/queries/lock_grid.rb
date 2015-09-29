@@ -1,4 +1,4 @@
-class LockGridCells
+class LockGrid
   def initialize(grid)
     @grid = grid
   end

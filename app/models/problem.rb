@@ -13,7 +13,7 @@ class Problem < ActiveRecord::Base
 
   def cells
     values.map do |value|
-      Cell.new(value: value, locked: value.present?)
+      Cell.new(value: value)
     end
   end
 end

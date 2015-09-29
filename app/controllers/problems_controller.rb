@@ -1,41 +1,39 @@
 class ProblemsController < ApplicationController
-  before_action :setup_problem_grid, :except => :index
-  before_action :setup_submitted_grid, :only => :update
+  before_action :setup_problem, :except => :index
 
   def index
     @problems = Problem.all
   end
 
   def show
-    @grid = @problem_grid
+    @grid = problem_grid
   end
 
   def update
-    @grid = ComposeGrids.new(@problem_grid, @submitted_grid).call
-    # TODO check submission
+    composed_grids = ComposeGrids.new(problem_grid, submitted_grid).call
+    @grid = CheckSolution.new(composed_grids).call
 
-    @you_won = @errors.nil? && @grid.complete?
+    @you_won = @grid.errors.none? && @grid.complete?
 
     render :show
   end
 
   private
 
-  def setup_problem_grid
+  def setup_problem
     @problem = Problem.find(problem_id)
-    @problem_grid = LockGridCells.new(@problem.grid).call
   end
 
-  def setup_submitted_grid
-    cells = guess_params.map do |param|
-      if param.empty?
-        Cell.new(value: nil)
-      else
-        Cell.new(value: param)
-      end
-    end
+  def problem_grid
+    LockGrid.new(@problem.grid).call
+  end
 
-    @submitted_grid = Grid.new(cells: cells)
+  def submitted_grid
+    Grid.new(cells: submitted_cells)
+  end
+
+  def submitted_cells
+    CellsFromValues.new(guess_params).call
   end
 
   def problem_id
